@@ -1,7 +1,9 @@
 import axios from "axios";
 
+import { API_BASE_URL } from "../config";
+
 const API = axios.create({
-    baseURL: "https://ping-me-backend-09ed.onrender.com/api",
+    baseURL: API_BASE_URL,
 });
 
 API.interceptors.request.use((config) => {

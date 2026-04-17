@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Send, Apple, PlayCircle } from "lucide-react";
-import logo from "../assets/pingme_logo-photoroom.png";
+import { APP_LOGO } from "../config";
 
 // Custom Social Icons to avoid missing export errors in lucide-react
 const Twitter = ({ size = 20 }) => (
@@ -39,7 +39,7 @@ const Footer = () => {
                     {/* Brand Column */}
                     <div className="lg:col-span-1">
                         <div className="flex items-center gap-3 mb-6">
-                            <img src={logo} alt="PingMe Logo" className="w-10 h-10 object-contain" />
+                            <img src={APP_LOGO} alt="PingMe Logo" className="w-10 h-10 object-contain" />
                             <h2 className="text-2xl font-bold text-white tracking-tight">PingMe</h2>
                         </div>
                         <p className="text-sm leading-relaxed mb-8">

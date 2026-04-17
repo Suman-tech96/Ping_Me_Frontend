@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Mail, Lock, LogIn, ArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
-import logo from "../assets/pingme_logo-photoroom.png";
+import { APP_LOGO } from "../config";
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: "", password: "" });
@@ -42,7 +42,7 @@ const Login = () => {
                 <div className="bg-white/5 backdrop-blur-[40px] p-8 md:px-12 md:py-10 rounded-[30px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] border border-white/10 flex flex-col items-center">
                     <div className="relative mb-4">
                         <div className="absolute inset-0 bg-primary/30 blur-xl rounded-full"></div>
-                        <img src={logo} alt="Logo" className="w-14 h-14 object-contain relative drop-shadow-2xl" />
+                        <img src={APP_LOGO} alt="Logo" className="w-14 h-14 object-contain relative drop-shadow-2xl" />
                     </div>
                     
                     <div className="text-center mb-6">

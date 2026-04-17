@@ -9,6 +9,8 @@ import { io } from "socket.io-client";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
+import { SOCKET_URL } from "../config";
+
 const Dashboard = () => {
     const { user } = useAuth();
     const [selectedRecipient, setSelectedRecipient] = useState(null);
@@ -43,7 +45,7 @@ const Dashboard = () => {
             // If already connected, don't re-init
             if (socket.current?.connected) return;
 
-            socket.current = io("https://ping-me-backend-09ed.onrender.com", {
+            socket.current = io(SOCKET_URL, {
                 auth: { token },
                 transports: ["websocket", "polling"],
                 reconnectionAttempts: 5,

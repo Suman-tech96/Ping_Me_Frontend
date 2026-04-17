@@ -1,13 +1,15 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
+import { API_BASE_URL } from "../config";
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const API_URL = "https://ping-me-backend-09ed.onrender.com/api/auth";
+    const API_URL = `${API_BASE_URL}/auth`;
 
     useEffect(() => {
         const storedUser = localStorage.getItem("chatUser");
