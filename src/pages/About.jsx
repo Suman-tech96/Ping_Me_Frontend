@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { MessageCircle, Heart, Globe, Award } from "lucide-react";
 import Footer from "../components/Footer";
 
+import logo from "../assets/pingme_logo-photoroom.png";
+
 const About = () => {
     return (
         <div className="min-h-screen w-full bg-[#f0f9ff] relative overflow-x-hidden overflow-y-auto text-slate-800 flex flex-col font-['Outfit']">
@@ -11,7 +13,7 @@ const About = () => {
 
             <nav className="sticky top-0 z-[1000] flex justify-between items-center px-[5%] lg:px-[10%] py-4 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)]">
                 <Link to="/" className="flex items-center gap-2 md:gap-3 group">
-                    <img src="/src/assets/pingme_logo-photoroom.png" alt="Logo" className="w-10 h-10 md:w-14 md:h-14 object-contain group-hover:scale-110 transition-transform duration-300" />
+                    <img src={logo} alt="Logo" className="w-10 h-10 md:w-14 md:h-14 object-contain group-hover:scale-110 transition-transform duration-300" />
                     <h1 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">Ping<span className="text-primary italic">Me</span></h1>
                 </Link>
 
