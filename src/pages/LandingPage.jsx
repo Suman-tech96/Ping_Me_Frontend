@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { MessageCircle, Shield, Zap, ArrowRight, UserPlus, LogIn, ExternalLink } from "lucide-react";
 import Footer from "../components/Footer";
+import logo from "../assets/pingme_logo-photoroom.png";
 
 const LandingPage = () => {
     return (
@@ -16,7 +17,7 @@ const LandingPage = () => {
             <nav className="sticky top-0 z-[1000] flex justify-between items-center px-[5%] lg:px-[10%] py-4 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)]">
                 <Link to="/" className="flex items-center gap-2 md:gap-3 group">
                     <div className="relative">
-                        <img src="/src/assets/pingme_logo-photoroom.png" alt="Logo" className="w-10 h-10 md:w-14 md:h-14 object-contain drop-shadow-[0_0_15px_rgba(99,102,241,0.3)] group-hover:scale-110 transition-transform duration-300" />
+                        <img src={logo} alt="Logo" className="w-10 h-10 md:w-14 md:h-14 object-contain drop-shadow-[0_0_15px_rgba(99,102,241,0.3)] group-hover:scale-110 transition-transform duration-300" />
                         <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </div>
                     <h1 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">Ping<span className="text-primary italic">Me</span></h1>

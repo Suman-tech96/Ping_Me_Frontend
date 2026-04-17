@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const API_URL = "http://localhost:5000/api/auth";
+    const API_URL = "https://ping-me-backend-09ed.onrender.com/api/auth";
 
     useEffect(() => {
         const storedUser = localStorage.getItem("chatUser");

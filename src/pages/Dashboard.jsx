@@ -43,7 +43,7 @@ const Dashboard = () => {
             // If already connected, don't re-init
             if (socket.current?.connected) return;
 
-            socket.current = io("http://localhost:5000", {
+            socket.current = io("https://ping-me-backend-09ed.onrender.com", {
                 auth: { token },
                 transports: ["websocket", "polling"],
                 reconnectionAttempts: 5,
