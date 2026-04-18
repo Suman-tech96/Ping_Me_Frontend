@@ -82,7 +82,7 @@ const Login = () => {
                         </div>
 
                         <div className="flex justify-end pt-1">
-                            <a href="#" className="text-[10px] font-black text-white/20 hover:text-primary transition-colors uppercase tracking-widest">Forgot Password?</a>
+                            <Link to="/forgot-password" size={14} className="text-[10px] font-black text-white/20 hover:text-primary transition-colors uppercase tracking-widest">Forgot Password?</Link>
                         </div>
 
                         <button type="submit" className="w-full py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-black text-lg shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-3 mt-4 border border-white/10">
