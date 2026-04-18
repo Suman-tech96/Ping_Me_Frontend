@@ -115,6 +115,9 @@ const Dashboard = () => {
             
             <div className="dashboard-content">
                 <div className="main-layout glass">
+                    {isSidebarOpen && (
+                        <div className="sidebar-backdrop" onClick={() => setIsSidebarOpen(false)}></div>
+                    )}
                     <div className={`sidebar-container ${isSidebarOpen ? 'open' : 'closed'}`}>
                         <Sidebar 
                             onSelectUser={(user) => {
@@ -223,6 +226,19 @@ const Dashboard = () => {
                         transform: translateX(0);
                         opacity: 1;
                     }
+                    .sidebar-backdrop {
+                        position: absolute;
+                        inset: 0;
+                        background: rgba(0,0,0,0.4);
+                        backdrop-filter: blur(2px);
+                        z-index: 40;
+                        animation: fadeIn 0.3s ease;
+                    }
+                }
+
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
                 }
 
                 /* ... other styles remain same or are defined in components ... */

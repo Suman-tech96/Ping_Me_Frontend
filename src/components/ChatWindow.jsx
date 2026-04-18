@@ -40,10 +40,12 @@ const ChatWindow = ({ recipient, onCall, socket }) => {
                 setShowEmojiPicker(false);
             }
 
-            // Close more menu if click is outside
+            // Close more menu if click is outside (Disabled as per user request for explicit close)
+            /*
             if (showMoreMenu && !event.target.closest('.header-actions')) {
                 setShowMoreMenu(false);
             }
+            */
         };
 
         document.addEventListener("mousedown", handleClickOutside);
@@ -220,31 +222,29 @@ const ChatWindow = ({ recipient, onCall, socket }) => {
     return (
         <div className="chat-window">
             <div className="chat-header glass">
-                <div className="recipient-info" onClick={() => setShowUserDetail(true)} style={{ cursor: 'pointer' }}>
+                <div className="recipient-info" onClick={() => setShowUserDetail(true)} style={{ cursor: 'pointer', minWidth: 0 }}>
                     <img src={recipient.photo} alt={recipient.name} className="avatar" />
-                    <div>
+                    <div style={{ minWidth: 0 }}>
                         <h3>{recipient.name}</h3>
                         <p className="status-text">{remoteTyping ? "Typing..." : "Temporary 24h Chat"}</p>
                     </div>
                 </div>
                 <div className="header-actions">
-                    <Phone 
-                        size={20} 
-                        className="action-icn" 
-                        onClick={() => onCall('voice')} 
-                        title="Voice Call" 
-                    />
-                    <Video 
-                        size={20} 
-                        className="action-icn" 
-                        onClick={() => onCall('video')} 
-                        title="Video Call" 
-                    />
+                    <button className="action-btn" onClick={() => onCall('voice')} title="Voice Call">
+                        <Phone size={18} />
+                    </button>
+                    <button className="action-btn" onClick={() => onCall('video')} title="Video Call">
+                        <Video size={18} />
+                    </button>
                     <div className="more-menu-wrapper">
-                        <MoreVertical size={20} className="action-icn" onClick={() => setShowMoreMenu(!showMoreMenu)} />
+                        <button className="action-btn more-btn" onClick={() => setShowMoreMenu(!showMoreMenu)} title="More">
+                            <MoreVertical size={22} />
+                        </button>
                         {showMoreMenu && (
                             <div className="dropdown-menu glass">
-                                <button onClick={handleClearChat}>Clear Chat</button>
+                                <button className="menu-item" onClick={handleClearChat}>Clear Chat</button>
+                                <hr className="menu-divider" />
+                                <button className="menu-item close-item" onClick={() => setShowMoreMenu(false)}>Close Menu</button>
                             </div>
                         )}
                     </div>
@@ -330,42 +330,83 @@ const ChatWindow = ({ recipient, onCall, socket }) => {
                     background: rgba(255, 255, 255, 0.02);
                 }
                 .chat-header {
-                    padding: 15px 25px;
+                    padding: 10px 25px;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
                     z-index: 10;
+                    height: 70px;
+                    border-bottom: 1px solid var(--glass-border);
                 }
-                .recipient-info { display: flex; align-items: center; gap: 12px; }
-                .status-text { font-size: 11px; color: var(--accent); }
-                .header-actions { display: flex; gap: 20px; color: var(--text-dim); align-items: center; position: relative; }
-                .action-icn { cursor: pointer; transition: 0.2s; }
-                .action-icn:hover { color: white; }
+                .recipient-info { 
+                    display: flex; 
+                    align-items: center; 
+                    gap: 12px; 
+                    flex: 1; 
+                    min-width: 0; 
+                }
+                .recipient-info h3 { 
+                    font-size: 16px; 
+                    font-weight: 600; 
+                    white-space: nowrap; 
+                    overflow: hidden; 
+                    text-overflow: ellipsis; 
+                }
+                .status-text { font-size: 11px; color: var(--accent); white-space: nowrap; }
+                .header-actions { 
+                    display: flex; 
+                    gap: 12px; 
+                    color: var(--text-dim); 
+                    align-items: center; 
+                    position: relative;
+                    padding-left: 10px;
+                }
+                .action-btn { 
+                    background: transparent; 
+                    color: var(--text-dim); 
+                    width: 38px;
+                    height: 38px;
+                    border-radius: 10px; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center;
+                    transition: 0.2s;
+                    flex-shrink: 0;
+                }
+                .action-btn:hover { background: rgba(255,255,255,0.05); color: white; }
                 
+                .more-btn { color: white; padding: 5px; margin-left: 5px; }
                 .more-menu-wrapper { position: relative; display: flex; align-items: center; }
                 .dropdown-menu {
                     position: absolute;
                     top: 100%;
                     right: 0;
-                    margin-top: 10px;
-                    width: 150px;
+                    margin-top: 15px;
+                    width: 160px;
                     padding: 8px;
-                    border-radius: 12px;
+                    border-radius: 16px;
                     z-index: 100;
-                    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+                    border: 1px solid rgba(255,255,255,0.1);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
                 }
-                .dropdown-menu button {
+                .menu-item {
                     width: 100%;
-                    padding: 10px;
+                    padding: 12px;
                     text-align: left;
                     background: transparent;
                     color: var(--text-main);
                     font-size: 14px;
-                    border-radius: 8px;
+                    border-radius: 10px;
+                    font-weight: 500;
                 }
-                .dropdown-menu button:hover {
-                    background: rgba(255,255,255,0.05);
+                .menu-item:hover {
+                    background: rgba(255,255,255,0.08);
                 }
+                .menu-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 2px 0; }
+                .close-item { color: var(--text-dim); }
                 .danger-text { color: var(--danger) !important; }
 
                 .messages-area {
@@ -419,38 +460,47 @@ const ChatWindow = ({ recipient, onCall, socket }) => {
                 .unsend-btn:hover { color: var(--danger); }
 
                 .chat-input-area {
-                    padding: 20px;
-                    margin: 20px;
+                    padding: 10px 15px;
+                    margin: 15px;
                     border-radius: 20px;
                     position: relative;
+                    width: auto;
                 }
                 .chat-input-area form {
                     display: flex;
                     align-items: center;
-                    gap: 15px;
+                    gap: 10px;
+                    width: 100%;
                 }
                 .chat-input-area input[type="text"] {
                     flex: 1;
-                    padding: 12px;
+                    padding: 10px;
                     background: transparent;
                     color: white;
                     font-size: 15px;
+                    min-width: 0;
                 }
                 .input-btn {
                     color: var(--text-dim);
                     background: transparent;
                     transition: 0.2s;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 8px;
                 }
                 .input-btn:hover { color: var(--primary); }
                 .send-btn {
-                    width: 45px;
-                    height: 45px;
-                    border-radius: 12px;
+                    width: 44px;
+                    height: 44px;
+                    min-width: 44px;
+                    border-radius: 15px;
                     background: var(--grad-main);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+                    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.4);
+                    margin-left: 5px;
                 }
                 .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
                 
@@ -487,10 +537,22 @@ const ChatWindow = ({ recipient, onCall, socket }) => {
                 }
 
                 @media (max-width: 768px) {
-                    .chat-header { padding: 10px 15px; }
-                    .chat-header h3 { font-size: 16px; }
-                    .chat-input-area { margin: 10px; padding: 12px; }
-                    .header-actions { gap: 15px; }
+                    .chat-header { padding: 5px 10px; height: 60px; }
+                    .recipient-info { gap: 8px; }
+                    .recipient-info .avatar { width: 35px; height: 35px; }
+                    .recipient-info h3 { font-size: 14px; }
+                    .header-actions { gap: 2px; padding-left: 5px; }
+                    .action-btn { width: 32px; height: 32px; }
+                    .more-btn { width: 28px; height: 28px; }
+
+                    .chat-input-area { margin: 10px; padding: 5px 10px; border-radius: 18px; }
+                    .chat-input-area form { gap: 5px; }
+                    .input-btn { padding: 5px; }
+                    .send-btn { width: 36px; height: 36px; min-width: 36px; border-radius: 10px; margin-left: 0; }
+                    
+                    .msg-content { max-width: 88%; }
+                    .messages-area { padding: 10px; }
+                    .dropdown-menu { margin-top: 5px; width: 130px; top: 100%; right: 0; }
                 }
             `}</style>
         </div>

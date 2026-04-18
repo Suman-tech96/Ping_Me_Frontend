@@ -52,6 +52,18 @@ const Sidebar = ({ onSelectUser, activeChat }) => {
                 </div>
             </div>
 
+            <div className="sidebar-search">
+                <form onSubmit={handleSearch}>
+                    <Search size={18} className="search-icon" />
+                    <input 
+                        type="text" 
+                        placeholder="Search chats or phone..." 
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </form>
+            </div>
+
             <div className="chat-list">
                 {searchResults && (
                     <div className="search-result-section">
@@ -124,9 +136,24 @@ const Sidebar = ({ onSelectUser, activeChat }) => {
                     object-fit: cover;
                     border: 2px solid var(--glass-border);
                 }
-                .user-info h3 { font-size: 16px; font-weight: 600; }
+                .user-info h3 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
                 .user-info p { font-size: 12px; color: var(--text-dim); }
                 
+                .sidebar-search { padding: 0 20px 15px; }
+                .sidebar-search form { position: relative; display: flex; align-items: center; }
+                .sidebar-search .search-icon { position: absolute; left: 12px; color: var(--text-dim); pointer-events: none; }
+                .sidebar-search input {
+                    width: 100%;
+                    padding: 10px 15px 10px 40px;
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid var(--glass-border);
+                    border-radius: 12px;
+                    color: white;
+                    font-size: 13px;
+                    transition: 0.3s;
+                }
+                .sidebar-search input:focus { border-color: var(--primary); background: rgba(255, 255, 255, 0.1); }
+
                 .chat-list {
                     flex: 1;
                     overflow-y: auto;
@@ -171,18 +198,13 @@ const Sidebar = ({ onSelectUser, activeChat }) => {
 
                 @media (max-width: 768px) {
                     .sidebar {
-                        width: 80px;
+                        width: 100%;
                     }
                     .user-info, .section-title, .chat-info, .online-status, .empty-state p {
-                        display: none;
+                        display: block; /* Shown because the container handles visibility */
                     }
-                    .sidebar-header {
-                        justify-content: center;
-                        padding: 20px 0;
-                    }
-                    .chat-item {
-                        justify-content: center;
-                        padding: 15px 0;
+                    .sidebar-search {
+                        display: block;
                     }
                 }
             `}</style>

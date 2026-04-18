@@ -44,7 +44,7 @@ const Navbar = ({ onSearchUser, onOpenProfile, onToggleSidebar }) => {
 
             <div className={`nav-center ${isMobileSearchOpen ? 'mobile-open' : ''}`}>
                 <div className="nav-search-bar">
-                    <form onSubmit={handleSearch}>
+                    <form onSubmit={handleSearch} className="search-form">
                         <Search className="search-icon" size={18} />
                         <input 
                             type="text" 
@@ -62,7 +62,7 @@ const Navbar = ({ onSearchUser, onOpenProfile, onToggleSidebar }) => {
 
             <div className="nav-right">
                 <div className="nav-icons">
-                    <button className="mobile-search-trigger" onClick={() => setIsMobileSearchOpen(true)}>
+                    <button className="mobile-search-trigger" onClick={() => setIsMobileSearchOpen(true)} title="Search">
                         <Search size={20} />
                     </button>
                     <div className="theme-toggle" onClick={toggleTheme} title={`Switch mode`}>
@@ -103,8 +103,8 @@ const Navbar = ({ onSearchUser, onOpenProfile, onToggleSidebar }) => {
                 .brand-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
                 .brand h2 { font-size: 20px; font-weight: 700; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
                 .nav-center { flex: 0 1 500px; }
-                .nav-search-bar { width: 100%; }
-                .nav-search-bar form { position: relative; display: flex; align-items: center; }
+                .nav-search-bar { width: 100%; display: flex; align-items: center; gap: 10px; }
+                .search-form { position: relative; display: flex; align-items: center; flex: 1; }
                 .nav-search-bar .search-icon { position: absolute; left: 15px; color: var(--text-dim); }
                 .nav-search-bar input {
                     width: 100%;
@@ -128,41 +128,54 @@ const Navbar = ({ onSearchUser, onOpenProfile, onToggleSidebar }) => {
                     font-size: 12px;
                     font-weight: 600;
                 }
-                .nav-right { display: flex; align-items: center; gap: 25px; }
-                .nav-icons { color: var(--text-dim); display: flex; gap: 20px; align-items: center; }
-                .theme-toggle { cursor: pointer; display: flex; align-items: center; transition: 0.3s; }
+                .nav-right { display: flex; align-items: center; gap: 20px; }
+                .nav-icons { color: var(--text-dim); display: flex; gap: 15px; align-items: center; }
+                .theme-toggle { cursor: pointer; display: flex; align-items: center; transition: 0.3s; padding: 5px; }
                 .theme-toggle:hover { color: var(--primary); transform: rotate(15deg); }
-                .nav-icn { cursor: pointer; transition: 0.3s; }
-                .nav-icn:hover { color: white; }
-                .nav-profile { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 5px 10px; border-radius: 12px; }
+                .nav-profile { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 5px; border-radius: 12px; }
                 .nav-profile:hover { background: rgba(255, 255, 255, 0.05); }
-                .nav-avatar { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; }
-                .nav-username { font-size: 14px; font-weight: 500; }
+                .nav-avatar { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; border: 1px solid var(--glass-border); }
+                .nav-username { font-size: 14px; font-weight: 500; white-space: nowrap; }
 
-                .mobile-search-trigger { display: none; background: transparent; color: var(--text-dim); }
+                .mobile-search-trigger { display: none; background: transparent; color: var(--text-dim); padding: 5px; border-radius: 8px; }
+                .mobile-search-trigger:hover { background: rgba(255,255,255,0.05); color: var(--primary); }
 
                 @media (max-width: 768px) {
-                    .top-nav { padding: 0 15px; }
-                    .nav-username, .nav-icn:not(.menu-btn *) { display: none; }
+                    .top-nav { padding: 0 12px; height: 60px; }
+                    .nav-username { display: none; }
+                    .nav-left .brand h2 { font-size: 18px; }
+                    .nav-right { gap: 5px; }
+                    .nav-icons { gap: 8px; }
                     .nav-center {
                         display: none;
                         position: absolute;
                         top: 0;
                         left: 0;
-                        width: 100%;
+                        right: 0;
                         height: 100%;
                         background: var(--bg-main);
-                        padding: 0 15px;
+                        padding: 0 12px;
                         z-index: 150;
                     }
-                    .nav-center.mobile-open { display: flex; align-items: center; }
-                    .mobile-search-trigger { display: flex; }
+                    .nav-center.mobile-open { display: flex; align-items: center; animation: slideDown 0.3s ease; }
+                    .mobile-search-trigger { display: flex; padding: 6px; }
                     .close-search {
-                        margin-left: 10px;
-                        font-size: 28px;
+                        font-size: 20px;
                         color: var(--text-dim);
-                        background: transparent;
+                        background: rgba(255,255,255,0.1);
+                        width: 32px;
+                        height: 32px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                        flex-shrink: 0;
                     }
+                }
+
+                @keyframes slideDown {
+                    from { transform: translateY(-100%); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
                 }
             `}</style>
         </nav>
